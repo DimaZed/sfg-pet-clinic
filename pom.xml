@@ -5,7 +5,7 @@
 
         <artifactId>sfg-pet-clinic</artifactId>
         <groupId>guru.springframework</groupId>
-        <version>0.0.3-SNAPSHOT</version>
+        <version>0.0.3</version>
 
     <modules>
         <module>pet-clinic-data</module>
@@ -42,7 +42,7 @@
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <checkModificationExcludes>
                         <checkModificationExclude>pom.xml</checkModificationExclude>
-                        <checkModificationExclude>**</checkModificationExclude>
+<!--                        <checkModificationExclude>**</checkModificationExclude>-->
                     </checkModificationExcludes>
                 </configuration>
             </plugin>
@@ -51,7 +51,7 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:DimaZed/sfg-pet-clinic.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>sfg-pet-clinic-0.0.3</tag>
   </scm>
 
 </project>
