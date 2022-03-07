@@ -49,7 +49,7 @@ public class OwnerMapService extends AbstractMapService<Owner, Long> implements 
 
                     } else {
 
-                        throw new RuntimeException("Pet ype is required");
+                        throw new RuntimeException("Pet type is required");
 
                     }
                     if (pet.getId() == null) {
