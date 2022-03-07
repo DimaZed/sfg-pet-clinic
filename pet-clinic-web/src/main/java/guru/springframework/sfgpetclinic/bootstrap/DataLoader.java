@@ -1,13 +1,12 @@
 package guru.springframework.sfgpetclinic.bootstrap;
 
 import guru.springframework.sfgpetclinic.model.*;
-import guru.springframework.sfgpetclinic.services.OwnerService;
-import guru.springframework.sfgpetclinic.services.PetTypeService;
-import guru.springframework.sfgpetclinic.services.SpecialtyService;
-import guru.springframework.sfgpetclinic.services.VetService;
+import guru.springframework.sfgpetclinic.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 import static java.time.LocalDate.now;
 
@@ -19,18 +18,20 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
+    private final VisitService visitService;
 
     @Autowired
     public DataLoader(
             OwnerService ownerService,
             VetService vetService,
             PetTypeService petTypeService,
-            SpecialtyService specialtyService
-    ) {
+            SpecialtyService specialtyService,
+            VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialtyService = specialtyService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -97,7 +98,23 @@ public class DataLoader implements CommandLineRunner {
 
         ownerService.save(owner2);
 
-        System.out.println("Loaded owners");
+        System.out.println("Owners loaded");
+
+        Visit fionasCatVisit = new Visit();
+        fionasCatVisit.setPet(fionasCat);
+        fionasCatVisit.setDescription("Fiona with cat");
+        fionasCatVisit.setDate(LocalDate.now());
+
+        visitService.save(fionasCatVisit);
+
+        Visit mikesDogVisit = new Visit();
+        mikesDogVisit.setPet(mikesDog);
+        mikesDogVisit.setDescription("Mike with dog");
+        mikesDogVisit.setDate(LocalDate.now().minusDays(1));
+
+        visitService.save(mikesDogVisit);
+
+        System.out.println("Visits loaded");
 
         Vet vet1 = new Vet();
         vet1.setFirstName("Sam");
@@ -113,6 +130,6 @@ public class DataLoader implements CommandLineRunner {
 
         vetService.save(vet2);
 
-        System.out.println("Loaded vets");
+        System.out.println("Vets loaded");
     }
 }
