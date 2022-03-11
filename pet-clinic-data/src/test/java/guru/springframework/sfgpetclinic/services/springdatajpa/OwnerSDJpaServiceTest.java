@@ -51,8 +51,10 @@ class OwnerSDJpaServiceTest {
     @Test
     void findAll() {
         Set<Owner> ownersSet = new HashSet<>();
+
         Owner firstOwner = Owner.builder().id(1l).lastName(LAST_NAME).build();
         Owner secondOwner = Owner.builder().id(2l).lastName(LAST_NAME).build();
+
         ownersSet.add(firstOwner);
         ownersSet.add(secondOwner);
 
