@@ -62,7 +62,7 @@ public class OwnerController {
 
         } else {
             model.addAttribute("selections", results);
-            return "owners/ownerList";
+            return "owners/ownersList";
         }
     }
 }
