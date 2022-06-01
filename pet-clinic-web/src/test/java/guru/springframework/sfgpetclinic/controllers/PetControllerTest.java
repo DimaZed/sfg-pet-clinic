@@ -1,6 +1,5 @@
 package guru.springframework.sfgpetclinic.controllers;
 
-
 import guru.springframework.sfgpetclinic.model.Owner;
 import guru.springframework.sfgpetclinic.model.Pet;
 import guru.springframework.sfgpetclinic.model.PetType;
@@ -19,6 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
@@ -29,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 class PetControllerTest {
-
 
     @Mock
     PetService petService;
@@ -46,11 +45,12 @@ class PetControllerTest {
     MockMvc mockMvc;
 
     Owner owner;
+
     Set<PetType> petTypes;
 
     @BeforeEach
     void setUp() {
-        owner = Owner.builder().id(1l).build();
+        owner = Owner.builder().id(1L).build();
 
         petTypes = new HashSet<>();
         petTypes.add(PetType.builder().id(1L).name("Dog").build());
@@ -74,14 +74,13 @@ class PetControllerTest {
     }
 
     @Test
-    void processCreationForm() throws Exception {
+    void processCreatingForm() throws Exception {
         when(ownerService.findById(anyLong())).thenReturn(owner);
         when(petTypeService.findAll()).thenReturn(petTypes);
 
         mockMvc.perform(post("/owners/1/pets/new"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/1"));
-
         verify(petService).save(any());
     }
 
@@ -91,7 +90,7 @@ class PetControllerTest {
         when(petTypeService.findAll()).thenReturn(petTypes);
         when(petService.findById(anyLong())).thenReturn(Pet.builder().id(2L).build());
 
-        mockMvc.perform(get("/owners/1/pets/2/edit"))
+        mockMvc.perform(get("/owners/1/pets/1/edit"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("owner"))
                 .andExpect(model().attributeExists("pet"))
@@ -106,22 +105,6 @@ class PetControllerTest {
         mockMvc.perform(post("/owners/1/pets/2/edit"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/1"));
-
         verify(petService).save(any());
     }
-
-//    @Test
-//    void populatePetTypes() {
-//        //todo impl
-//    }
-//
-//    @Test
-//    void findOwner() {
-//        //todo impl
-//    }
-//
-//    @Test
-//    void initOwnerBinder() {
-//        //todo impl
-//    }
 }
